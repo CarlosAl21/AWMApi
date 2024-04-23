@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { usuarios } from "./usuarios.entity";
 import { Repository } from "typeorm";
@@ -10,9 +10,13 @@ export class servicios {
         console.log('Servicios cargados');
     }
     async create(dto: createUsuarioDto){
-        const usurio = this.usuriosRepository.create(dto);
-
-        return await this.usuriosRepository.save(usurio);
+        try {
+            const usurio = this.usuriosRepository.create(dto);
+            return await this.usuriosRepository.save(usurio);
+        } catch (error) {
+            console.error(error);
+            throw new InternalServerErrorException('Error al crear el usuario');
+        }
     }
 
     findMany(){
