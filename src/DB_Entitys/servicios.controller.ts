@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { servicios } from './servicios.service';
 import { createUsuarioDto } from './dtos/create-usuario.dto';
 
@@ -11,4 +11,23 @@ export class serviciosContoller {
         return this.servicios.create(dto);
     }
 
+    @Get()
+    findMany() {
+        return this.servicios.findMany();
+    }
+
+    @Get(':id')
+    async findOne(@Param('id') id:number) {
+        return this.servicios.findOne(id);
+    }
+
+    @Put(':id')
+    update(@Param('id') id:number, @Body() dto: createUsuarioDto) {
+        return this.servicios.update(id,dto);
+    }
+
+    @Delete(':id')
+    delete(@Param('id') id:number) {
+        return this.servicios.delete(id);
+    }
 }
