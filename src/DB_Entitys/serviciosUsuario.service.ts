@@ -5,7 +5,7 @@ import { Repository } from "typeorm";
 import { createUsuarioDto } from "./dtos/create-usuario.dto";
 
 @Injectable()
-export class servicios {
+export class serviciosUsuario {
     constructor(@InjectRepository(usuarios) private readonly usuriosRepository: Repository<usuarios>) {
         console.log('Servicios cargados');
     }
@@ -27,6 +27,14 @@ export class servicios {
         const usuario = await this.usuriosRepository.findOne({where: {ID_Usuario: id}});
         if (!usuario) {
             throw new NotFoundException(`Usuario con ID ${id} no encontrado`);
+        }
+        return usuario;
+    }
+
+    async findByEmail(email: string): Promise<usuarios> {
+        const usuario = await this.usuriosRepository.findOne({ where: {Correo_electronico:email } });
+        if (!usuario) {
+            throw new NotFoundException(`Usuario con correo ${email} no encontrado`);
         }
         return usuario;
     }

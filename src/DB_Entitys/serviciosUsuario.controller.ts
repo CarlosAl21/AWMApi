@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { servicios } from './servicios.service';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from '@nestjs/common';
+import { serviciosUsuario } from './serviciosUsuario.service';
 import { createUsuarioDto } from './dtos/create-usuario.dto';
 
-@Controller('servicios')
-export class serviciosContoller {
-    constructor(private readonly servicios: servicios) { }
+@Controller('servicioUsuario')
+export class serviciosUsuarioController {
+    constructor(private readonly servicios: serviciosUsuario) { }
 
     @Post()
     create(@Body() dto: createUsuarioDto) {
@@ -20,6 +20,15 @@ export class serviciosContoller {
     async findOne(@Param('id') id:number) {
         return this.servicios.findOne(id);
     }
+
+    @Get('email/:email')
+  async findByEmail(@Param('email') email: string) {
+    try {
+      return this.servicios.findByEmail(email);
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
 
     @Put(':id')
     update(@Param('id') id:number, @Body() dto: createUsuarioDto) {
