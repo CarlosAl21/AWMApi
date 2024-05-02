@@ -6,11 +6,14 @@ import { serviciosUsuario } from "./serviciosUsuario.service";
 import { LugaresTuristicos } from "./lugaresTuristicos.entity";
 import { serviciosLugares } from "./serviciosLugares.service";
 import { serviciosLugaresController } from "./serviciosLugares.controller";
+import { Itinerarios } from "./itinerarios.entity";
+import { ItinerariosController } from "./serviciositinerarios.controller";
+import { ItinerariosService } from "./serviciositinerarios.service";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([usuarios, LugaresTuristicos])],
-    controllers: [serviciosUsuarioController, serviciosLugaresController],
-    providers: [serviciosUsuario, serviciosLugares]
+    imports: [TypeOrmModule.forFeature([usuarios, LugaresTuristicos, Itinerarios])],
+    controllers: [serviciosUsuarioController, serviciosLugaresController, ItinerariosController ],
+    providers: [serviciosUsuario, serviciosLugares, ItinerariosService ]
 })
 export class Modulos {
     

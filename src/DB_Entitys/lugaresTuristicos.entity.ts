@@ -8,10 +8,10 @@ export class LugaresTuristicos {
   @Column()
   Nombre: string;
 
-  @Column()
+  @Column({ length: 1000 })
   Descripcion: string;
 
-  @Column()
+  @Column({ length: 1000 })
   Ubicacion: string;
 
   @Column()
